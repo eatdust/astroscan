@@ -18,11 +18,14 @@ class scanner(object):
         error, self.camera = gp.gp_camera_new()
         if error != 0:
             print('init scanner: cannot allocate ressources!')
+            self.error = error
+            return
 
         self.connect()
         error, text = gp.gp_camera_get_summary(self.camera, self.context)
         if error != 0:
             print('init scanner: cannot get camera summary!')
+            self.error = error
             return 
         
         self.text = text.text
@@ -34,7 +37,10 @@ class scanner(object):
         error = self.get_config()
         if error !=0:
             print('init scanner: cannot get camera config!')
+            self.error = error
+            return
         else:
+            self.error = 0
             self.get_exposure_bias()
             self.get_exposure_time()
             self.get_iso()

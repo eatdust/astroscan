@@ -6,10 +6,10 @@ import scanner as sc
 import time as time
 import sys as sys
 import threading as th
-
+#check async
 
 #storage path for output scans
-toppath = '/tmp/' + 'tests/'
+toppath = '/home/chris/' + 'chateaurenard/'
 imgpath = toppath + 'raws/'
 flatpath = toppath + 'flats/'
 zeropath = toppath + 'zeros/'
@@ -35,7 +35,7 @@ scanning = False
 
 #delay between two image scan (in sec)
 mindelay = 0
-maxdelay = 10
+maxdelay = 30
 
 
 
@@ -71,6 +71,7 @@ def main():
     settingmenu.append_item(expitem)
     settingmenu.append_item(isoitem)
     
+    
     settingitem = cm.items.SubmenuItem("Settings menu",settingmenu,menu)
     menu.append_item(settingitem)
     
@@ -79,9 +80,8 @@ def main():
 
     calibitem = cm.items.SubmenuItem("Calibration menu",calibmenu,menu)
     menu.append_item(calibitem)
-    
-    menu.show()
 
+    menu.show()
 
 
 
@@ -403,10 +403,26 @@ def scan_controls(camera,menu):
             scr[izero,delaylab.width:delaylab.width+delaystg.width+1]=[delaystg]
 
             isolab=ci.fmtstr(on_blue(bold(yellow('iso ='))))
-            isostg=ci.fmtstr(on_blue(red(bold(' '+str(camera.get_iso())))))
+            if camera.error == 0:
+                isostg=ci.fmtstr(on_blue(red(bold(' '+str(camera.get_iso())))))
+            else:
+                isostg = ci.fmtstr(on_blue(red(bold(' '+'No Cam'))))
             scr[izero,window.width-isolab.width-isostg.width
                 :window.width-isostg.width]=[isolab]
             scr[izero,window.width-isostg.width:window.width]=[isostg]
+
+            shutlab=ci.fmtstr(on_blue(bold(yellow('exptime ='))))
+
+            if camera.error == 0:
+                shutstg=ci.fmtstr(on_blue(red(bold(' '+str(camera.get_exposure_time())))))
+            else:
+                shutstg = ci.fmtstr(on_blue(red(bold(' '+'No Cam'))))
+
+            icenter=int((window.width+shutlab.width+shutstg.width)/2)
+            scr[ilast-2,icenter-shutlab.width-shutstg.width:icenter-shutstg.width]=[shutlab]
+            scr[ilast-2,icenter-shutstg.width:icenter]=[shutstg]
+
+
 
 
             hdrlab=ci.fmtstr(on_blue(bold(yellow('hdrframe ='))))

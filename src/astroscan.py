@@ -6,6 +6,9 @@ import scanner as sc
 import time as time
 import sys as sys
 import threading as th
+import configparser as cp
+import os as os
+
 #check async
 
 #storage path for output scans
@@ -22,7 +25,7 @@ hdrlgth = 2
 
 #hdr default settings
 hdrframe = 1
-exprange = 2
+exprange = 1
 
 #global image positionning counter
 imgcount = 0
@@ -42,7 +45,8 @@ maxdelay = 30
 
 def main():
 
-
+    read_config_file()
+    
     camera = sc.scanner(pylog=True, summary=False)
     time.sleep(2)
     
@@ -85,6 +89,52 @@ def main():
 
 
 
+def read_config_file():
+    if not os.path.exists('config.ini'):
+        return
+
+
+    config = cp.ConfigParser()
+    config.read('config.ini')
+    toppath = config['storage']['toppath']
+    imgpath = toppath + config['storage']['imgsubdir']
+    flatpath = toppath + config['storage']['flatsubdir']
+    zeropath = toppath + config['storage']['zerosubdir']
+
+    imgroot = config['storage']['imgroot']
+    imgtype = config['storage']['imgtype']
+
+    imgcount = config['camera']['imgcount']
+    imginfty = config['camera']['imginfty']
+    hdrframe = config['camera']['hdrframe']
+    exprange = config['camera']['exprange']
+    mindelay = config['camera']['mindelay']
+    maxdelay = config['camera']['maxdelay']
+
+    print("---------------------------------------")
+    print("Config file found")
+    print("---------------------------------------")
+    print("toppath   = ",toppath)
+    print("imgpath   = ",imgpath)
+    print("flatpath  = ",flatpath)
+    print("zeropath  = ",zeropath)
+    print("imgroot   = ",imgroot)
+    print("imgtype   = ",imgtype)
+    print("")
+    print("imgcount  = ",imgcount)
+    print("imginfty  = ",imginfty)
+    print("hdrframe  = ",hdrframe)
+    print("exprange  = ",exprange)
+    print("mindelay  = ",mindelay)
+    print("maxdelay  = ",maxdelay)
+    print("")
+    print("stepmode  = ",inistepmode)
+    print("rpmps     = ",rpmps)
+    print("maxrpm    = ",maxrpm)
+    print("---------------------------------------")
+    print("")
+
+    time.sleep(3)
 
 
 def reset_imgcount():

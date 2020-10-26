@@ -104,12 +104,12 @@ def read_config_file():
     imgroot = config['storage']['imgroot']
     imgtype = config['storage']['imgtype']
 
-    imgcount = config['camera']['imgcount']
-    imginfty = config['camera']['imginfty']
-    hdrframe = config['camera']['hdrframe']
-    exprange = config['camera']['exprange']
-    mindelay = config['camera']['mindelay']
-    maxdelay = config['camera']['maxdelay']
+    imgcount = int(config['camera']['imgcount'])
+    imginfty = int(config['camera']['imginfty'])
+    hdrframe = int(config['camera']['hdrframe'])
+    exprange = int(config['camera']['exprange'])
+    mindelay = int(config['camera']['mindelay'])
+    maxdelay = int(config['camera']['maxdelay'])
 
     print("---------------------------------------")
     print("Config file found")

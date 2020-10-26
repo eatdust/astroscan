@@ -127,10 +127,6 @@ def read_config_file():
     print("exprange  = ",exprange)
     print("mindelay  = ",mindelay)
     print("maxdelay  = ",maxdelay)
-    print("")
-    print("stepmode  = ",inistepmode)
-    print("rpmps     = ",rpmps)
-    print("maxrpm    = ",maxrpm)
     print("---------------------------------------")
     print("")
 

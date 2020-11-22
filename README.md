@@ -59,7 +59,7 @@ The main menu looks like this:
 
 The first entry is the main control interface where you can start, and
 stop, taking acquisitions (the "position" command is currently unused
-and but will allow at some point to control the mount):
+but will allow, at some point, to control the mount):
 
 ---
 ![capture](/docs/capture_controls.png?raw=true)

@@ -7,6 +7,13 @@
 Astroscan is a simple interactive interface for controlling digital
 cameras for doing astronomical imaging, but not only!
 
+You can use it for timelapse, stop-motion, anything that requires you
+to automatically remote control a digital camera. Its simple interface
+is designed to work through any weak internet connexion. For instance,
+Astroscan can be run onto a Raspberry Pi on which your camera and
+harddrive are plugged, and you can control everything remotely through
+a wifi connexion.
+
 Please ensure that you have a working installation of
 [gphoto2](https://github.com/gphoto/gphoto2) as well as
 [python-gphoto2](https://github.com/jim-easterbrook/python-gphoto2). Astroscan
@@ -22,8 +29,8 @@ first attempt to initialize it. If no camera is connected,
 to explore the menus (pretty useless then!).
 
 Default settings should be edited in the config file **config.ini**,
-such as the default storage path for captures, flats and bias images,
-delay between two successive shots, number of HDR frames and exposure
+such as the default storage path for captures, flat and bias images,
+the delay between two successive shots, the number of HDR frames and exposure
 range in between, etc...
 
 ```python
@@ -50,13 +57,15 @@ The main menu looks like this:
 ![main](/docs/main_menu.png?raw=true)
 ---
 
-The first entry is the main control interface where you can start taking acquisitions:
+The first entry is the main control interface where you can start, and
+stop, taking acquisitions (the "position" command is currently unused
+and but will allow at some point to control the mount):
 
 ---
 ![capture](/docs/capture_controls.png?raw=true)
 ---
 
-The second entry goes into another menu allowing you to set on-the-fly various other parameters:
+The second entry goes into another menu allowing you to set various other parameters:
 
 ---
 ![params](/docs/param_menu.png?raw=true)

@@ -53,7 +53,8 @@ def main():
     menu = cm.CursesMenu("Astroscan", "Actions")
     scanitem = cm.items.FunctionItem("Capture controls",scan_controls,[camera,menu])
     
-    settingmenu = cm.SelectionMenu(strings=[],title="Astroscan parameters menu")
+    settingmenu = cm.CursesMenu(title="Astroscan parameters menu")
+    settingitem = cm.items.SubmenuItem("Settings menu",settingmenu,menu)
     
     resetitem = cm.items.FunctionItem("Set image count",reset_imgcount,[])
     hdritem = cm.items.FunctionItem("Set HDR number",reset_hdrframe,[])
@@ -62,28 +63,27 @@ def main():
     expitem = cm.items.FunctionItem("Set exposure time",reset_exptime,[camera])
     isoitem = cm.items.FunctionItem("Set ISO value",reset_iso,[camera])
 
-    calibmenu = cm.SelectionMenu(strings=[],title="Astroscan calibration menu")
+    calibmenu = cm.CursesMenu(title="Astroscan calibration menu")
+    calibitem = cm.items.SubmenuItem("Calibration menu",calibmenu,menu)
+    
     flatitem = cm.items.FunctionItem("Take flat exposures",take_flats,[camera,0.0])
     zeroitem = cm.items.FunctionItem("Take zero exposures",take_zeros,[camera,0.0])
     
-    menu.append_item(scanitem)
+    menu.items.append(scanitem)
     
-    settingmenu.append_item(resetitem)
-    settingmenu.append_item(hdritem)
-    settingmenu.append_item(inftyitem)
-    settingmenu.append_item(rangeitem)
-    settingmenu.append_item(expitem)
-    settingmenu.append_item(isoitem)
+    settingmenu.items.append(resetitem)
+    settingmenu.items.append(hdritem)
+    settingmenu.items.append(inftyitem)
+    settingmenu.items.append(rangeitem)
+    settingmenu.items.append(expitem)
+    settingmenu.items.append(isoitem)
     
+    menu.items.append(settingitem)
     
-    settingitem = cm.items.SubmenuItem("Settings menu",settingmenu,menu)
-    menu.append_item(settingitem)
-    
-    calibmenu.append_item(flatitem)
-    calibmenu.append_item(zeroitem)
+    calibmenu.items.append(flatitem)
+    calibmenu.items.append(zeroitem)
 
-    calibitem = cm.items.SubmenuItem("Calibration menu",calibmenu,menu)
-    menu.append_item(calibitem)
+    menu.items.append(calibitem)
 
     menu.show()
 
